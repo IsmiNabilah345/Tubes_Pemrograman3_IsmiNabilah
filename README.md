@@ -86,6 +86,75 @@ Untuk memastikan data benar-benar tersimpan di file database `data/ws2026.db`:
 
 ---
 
+## Hasil Pengujian API
+
+Berikut adalah beberapa hasil pengujian endpoint menggunakan Postman untuk memastikan seluruh fitur API berjalan dengan baik.
+
+### 1. GET - Melihat Semua Data Barang
+Endpoint:
+```http
+GET /api/v1/items
+```
+
+![GET Items](./screenshots/get-items.png)
+
+---
+
+### 2. GET - Melihat Detail Barang Berdasarkan ID
+Endpoint:
+```http
+GET /api/v1/items/:id
+```
+
+![GET Item By ID](./screenshots/get-item-by-id.png)
+
+---
+
+### 3. POST - Menambahkan Barang Baru
+Endpoint:
+```http
+POST /api/v1/items
+```
+
+Contoh Body JSON:
+```json
+{
+  "name": "Mechanical Keyboard Pro",
+  "category": "Accessories",
+  "price_usd": 45,
+  "stock": 20
+}
+```
+
+![POST Item](./screenshots/post-item.png)
+
+---
+
+### 4. PUT - Memperbarui Data Barang
+Endpoint:
+```http
+PUT /api/v1/items/:id
+```
+
+![PUT Item](./screenshots/put-item.png)
+
+---
+
+### 5. DELETE - Menghapus Data Barang
+Endpoint:
+```http
+DELETE /api/v1/items/:id
+```
+
+![DELETE Item](./screenshots/delete-item.png)
+
+---
+
+### 6. Database SQLite
+Data inventaris berhasil tersimpan secara permanen pada database SQLite.
+
+![SQLite Database](./screenshots/sqlite-db.png)
+
 ## Catatan Progress
 
 - REST API berhasil dibuat menggunakan Express.js dan TypeScript
