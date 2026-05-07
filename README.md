@@ -119,7 +119,7 @@ POST /api/v1/items
 Contoh Body JSON:
 ```json
 {
-  "name": "Mechanical Keyboard Pro",
+  "name": "Mouse Wireless Pro",
   "category": "Accessories",
   "price_usd": 15.0,
   "stock": 100
