@@ -121,8 +121,8 @@ Contoh Body JSON:
 {
   "name": "Mechanical Keyboard Pro",
   "category": "Accessories",
-  "price_usd": 45,
-  "stock": 20
+  "price_usd": 15.0,
+  "stock": 100
 }
 ```
 
