@@ -1,3 +1,5 @@
+# Ismi Nabilah 2B D4 Teknik Informatika
+
 # Currency Integrated Inventory API
 
 Web Service berbasis REST yang mengintegrasikan manajemen inventaris dengan konversi mata uang real-time menggunakan API eksternal.
@@ -119,10 +121,10 @@ POST /api/v1/items
 Contoh Body JSON:
 ```json
 {
-  "name": "Mechanical Keyboard Pro",
+  "name": "Mouse Wireless Pro",
   "category": "Accessories",
-  "price_usd": 45,
-  "stock": 20
+  "price_usd": 15.0,
+  "stock": 100
 }
 ```
 
