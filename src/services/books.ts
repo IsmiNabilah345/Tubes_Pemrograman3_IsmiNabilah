@@ -43,13 +43,17 @@ export const listItemsWithExchange = async (page: number, limit: number) => {
   }
 
   const itemsWithPrice = rows.map(row => {
-    const item = toItem(row);
-    return {
-      ...item,
-      priceIdr: Math.round(item.price_usd * rateIDR),
-      conversionRate: `1 USD = Rp${rateIDR.toLocaleString('id-ID')}`
-    };
-  });
+  const item = toItem(row);
+
+  const priceIdr = Math.round(item.price_usd * rateIDR);
+
+  return {
+    ...item,
+    priceIdr,
+    formattedPriceIdr: `Rp${priceIdr.toLocaleString("id-ID")}`,
+    conversionRate: `1 USD = Rp${rateIDR.toLocaleString("id-ID")}`
+  };
+});
 
   return { data: itemsWithPrice, total: countRow.total };
 };

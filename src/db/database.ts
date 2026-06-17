@@ -21,6 +21,16 @@ export const initializeDatabase = () => {
     )
   `);
 
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS users (
+      id TEXT PRIMARY KEY,
+      username TEXT NOT NULL UNIQUE,
+      password TEXT NOT NULL,
+      role TEXT NOT NULL DEFAULT 'user',
+      created_at TEXT NOT NULL
+    )
+  `);
+
   // 2. Cek apakah tabel kosong (ganti query ke items)
   const countRow = db
     .prepare("SELECT COUNT(*) AS total FROM items")
