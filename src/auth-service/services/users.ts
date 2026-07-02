@@ -8,9 +8,7 @@ type UserRow = {
   created_at: string;
 };
 
-export const findUserByUsername = (
-  username: string
-) => {
+export const findUserByUsername = (username: string) => {
   return db
     .prepare("SELECT * FROM users WHERE username = ?")
     .get(username) as UserRow | undefined;
@@ -40,10 +38,7 @@ export const createUser = (
   );
 };
 
-export const updateUserRole = (
-  username: string,
-  role: string
-) => {
+export const updateUserRole = (username: string, role: string) => {
   db.prepare(
     `
     UPDATE users

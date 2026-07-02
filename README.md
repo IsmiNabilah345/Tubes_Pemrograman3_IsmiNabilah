@@ -1,119 +1,166 @@
-# Ismi Nabilah 2B D4 Teknik Informamtika
-
 # Currency Integrated Inventory API
 
-RESTful Web Service untuk manajemen inventaris barang yang terintegrasi dengan konversi mata uang secara real-time menggunakan API eksternal. Sistem dilengkapi autentikasi JWT, role-based authorization, validasi data, dokumentasi API menggunakan Swagger/OpenAPI, serta penyimpanan data menggunakan SQLite.
+RESTful Web Service untuk manajemen inventaris barang yang terintegrasi dengan konversi mata uang secara real-time menggunakan API eksternal. Aplikasi ini dibangun menggunakan **Express.js** dan **TypeScript**, serta dilengkapi dengan autentikasi JWT, Role-Based Authorization (RBAC), database SQLite, validasi menggunakan Zod, dan dokumentasi API menggunakan Swagger.
+
+**Developer:** Ismi Nabilah 2B D4 Teknik Informatika
 
 ---
 
-## Fitur Utama
+# Gambaran Project
 
-### Inventory Management
+Project ini merupakan Web Service berbasis REST yang digunakan untuk mengelola data inventaris barang. Selain menyediakan fitur CRUD, aplikasi juga mengintegrasikan API kurs mata uang sehingga harga barang dalam USD dapat dikonversi secara otomatis ke Rupiah (IDR).
 
-* Menambahkan data barang
-* Melihat daftar seluruh barang
-* Melihat detail barang berdasarkan ID
-* Memperbarui data barang
-* Menghapus data barang
+Project ini dibuat sebagai implementasi berbagai konsep Web Service, seperti:
 
-### Currency Integration
-
-* Konversi harga dari USD ke IDR secara otomatis
-* Mengambil nilai tukar dari API eksternal secara real-time
-* Menampilkan harga hasil konversi dan kurs yang digunakan
-
-### Authentication & Authorization
-
-* Registrasi pengguna
-* Login menggunakan username dan password
-* JWT (JSON Web Token) Authentication
-* Role-based Authorization (Admin dan User)
-* Endpoint tertentu hanya dapat diakses oleh Admin
-
-### API Documentation
-
-* Dokumentasi API menggunakan Swagger/OpenAPI
-* Endpoint dapat diuji langsung melalui browser
-
-### Data Persistence
-
-* Database SQLite
-* Data tetap tersimpan meskipun server dimatikan
-
-### Validation
-
-* Validasi request menggunakan Zod
-* Menampilkan pesan error yang jelas apabila data tidak valid
+- REST API
+- Authentication & Authorization
+- Integrasi API Eksternal
+- Dokumentasi API menggunakan Swagger
+- Database Persistence
+- Validasi Data
 
 ---
 
-## Tech Stack
+# Fitur Utama
 
-### Backend
+## Manajemen Inventaris
 
-* Node.js
-* Express.js
-* TypeScript
+- Menambahkan data barang
+- Melihat seluruh data barang
+- Melihat detail barang berdasarkan ID
+- Memperbarui data barang
+- Menghapus data barang
 
-### Database
+## Integrasi Kurs Mata Uang
 
-* SQLite (`node:sqlite`)
+- Konversi harga dari USD ke IDR
+- Mengambil kurs secara real-time dari API eksternal
+- Menampilkan hasil konversi beserta kurs yang digunakan
+- Menggunakan nilai default apabila API eksternal tidak dapat diakses
 
-### Authentication
+## Authentication & Authorization
 
-* JSON Web Token (JWT)
+- Registrasi pengguna
+- Login pengguna
+- JWT Authentication
+- Bearer Token Authorization
+- Role Admin dan User
+- Endpoint tertentu hanya dapat diakses oleh Admin
 
-### Validation
+## Dokumentasi API
 
-* Zod
+- Swagger UI
+- Pengujian endpoint langsung melalui browser
 
-### API Documentation
+## Validasi Data
 
-* Swagger UI
-* Swagger JSDoc
+- Validasi request menggunakan Zod
+- Menampilkan pesan error apabila data tidak valid
 
-### Development Tools
+## Database
 
-* TSX
-* Vitest
+- SQLite
+- Data tetap tersimpan meskipun server dimatikan
 
 ---
 
-## Arsitektur Sistem
+# Highlight Project
 
-Project ini menggunakan arsitektur Monolithic REST API.
+✅ RESTful API
+
+✅ CRUD Inventory
+
+✅ SQLite Database
+
+✅ JWT Authentication
+
+✅ Role-Based Authorization (RBAC)
+
+✅ Swagger Documentation
+
+✅ Integrasi API Eksternal
+
+✅ Konversi Mata Uang
+
+✅ Validasi Data menggunakan Zod
+
+---
+
+# Tech Stack
+
+| Kategori | Teknologi |
+|----------|-----------|
+| Backend | Node.js, Express.js |
+| Bahasa | TypeScript |
+| Database | SQLite |
+| Authentication | JWT |
+| Validasi | Zod |
+| Dokumentasi | Swagger UI & OpenAPI |
+| Development | TSX |
+| Pengujian | Swagger UI & Postman |
+
+---
+
+# Arsitektur Sistem
 
 ```text
-Client
-   │
-   ▼
-Express Application
-   │
-   ├── Authentication
-   ├── Authorization
-   ├── Inventory Management
-   ├── Currency Integration
-   ├── Swagger Documentation
-   └── SQLite Database
+                   Client
+                      │
+                      │ HTTP Request
+                      ▼
+          +-------------------------+
+          | Express REST API Server |
+          +-----------+-------------+
+                      |
+      +---------------+----------------+
+      |               |                |
+ Authentication   Inventory API   Currency Service
+      |               |                |
+      +---------------+----------------+
+                      |
+                      ▼
+                SQLite Database
+
+          API Kurs Mata Uang Eksternal
 ```
 
 ---
 
-## Instalasi
+# Alur Authentication
 
-Clone repository:
+```text
+Registrasi
+     │
+     ▼
+Login
+     │
+     ▼
+Mendapatkan JWT
+     │
+     ▼
+Authorize (Bearer Token)
+     │
+     ▼
+Mengakses Endpoint yang Dilindungi
+```
+
+---
+
+# Instalasi
+
+Clone repository
 
 ```bash
 git clone <repository-url>
 ```
 
-Masuk ke folder project:
+Masuk ke folder project
 
 ```bash
 cd <nama-project>
 ```
 
-Install dependency:
+Install dependency
 
 ```bash
 npm install
@@ -121,15 +168,15 @@ npm install
 
 ---
 
-## Menjalankan Project
+# Menjalankan Project
 
-Mode development:
+Mode Development
 
 ```bash
 npm run dev
 ```
 
-Server akan berjalan pada:
+Server berjalan pada
 
 ```text
 http://localhost:3000
@@ -137,40 +184,42 @@ http://localhost:3000
 
 ---
 
-## Dokumentasi API
+# Dokumentasi API
 
-Swagger UI tersedia pada:
+Swagger tersedia pada
 
 ```text
 http://localhost:3000/api-docs
 ```
 
-Melalui halaman tersebut seluruh endpoint dapat dicoba langsung tanpa menggunakan Postman.
+Melalui halaman tersebut seluruh endpoint dapat langsung dicoba tanpa menggunakan Postman.
 
 ---
 
-## Endpoint Authentication
+# Endpoint Authentication
 
-| Method | Endpoint       | Keterangan                |
-| ------ | -------------- | ------------------------- |
-| POST   | /auth/register | Registrasi pengguna       |
-| POST   | /auth/login    | Login dan mendapatkan JWT |
-
----
-
-## Endpoint Inventory
-
-| Method | Endpoint          | Authentication |
-| ------ | ----------------- | -------------- |
-| GET    | /api/v1/items     | Tidak          |
-| GET    | /api/v1/items/:id | Tidak          |
-| POST   | /api/v1/items     | Ya             |
-| PUT    | /api/v1/items/:id | Ya             |
-| DELETE | /api/v1/items/:id | Ya             |
+| Method | Endpoint | Keterangan |
+|--------|----------|------------|
+| POST | /auth/register | Registrasi pengguna |
+| POST | /auth/login | Login dan mendapatkan JWT |
 
 ---
 
-## Contoh Request Registrasi
+# Endpoint Inventory
+
+| Method | Endpoint | Authentication |
+|--------|----------|----------------|
+| GET | /api/v1/items | Public |
+| GET | /api/v1/items/{id} | Public |
+| POST | /api/v1/items | Admin |
+| PUT | /api/v1/items/{id} | Admin |
+| DELETE | /api/v1/items/{id} | Admin |
+
+---
+
+# Contoh Login
+
+Request
 
 ```json
 {
@@ -179,32 +228,21 @@ Melalui halaman tersebut seluruh endpoint dapat dicoba langsung tanpa menggunaka
 }
 ```
 
----
-
-## Contoh Request Login
+Response
 
 ```json
 {
-  "username": "mina",
-  "password": "123456"
-}
-```
-
-Contoh Response:
-
-```json
-{
-  "token": "eyJhbGciOi..."
+  "token": "eyJhbGciOiJIUzI1Ni..."
 }
 ```
 
 ---
 
-## Contoh Request Menambah Barang
+# Contoh Menambah Barang
 
 ```json
 {
-  "name": "Mechanical Keyboard Pro",
+  "name": "Mechanical Keyboard",
   "category": "Accessories",
   "price_usd": 45,
   "stock": 20
@@ -213,12 +251,12 @@ Contoh Response:
 
 ---
 
-## Contoh Response Data Barang
+# Contoh Response Barang
 
 ```json
 {
   "id": "item-001",
-  "name": "Mechanical Keyboard Pro",
+  "name": "Mechanical Keyboard",
   "category": "Accessories",
   "price_usd": 45,
   "stock": 20,
@@ -229,47 +267,77 @@ Contoh Response:
 
 ---
 
-## Pengujian
+# API Eksternal
 
-Pengujian API dilakukan menggunakan:
+Project ini menggunakan **ExchangeRate-API** sebagai sumber data kurs mata uang.
 
-* Swagger UI
-* Postman
+API digunakan untuk:
 
-Skenario pengujian yang dilakukan:
-
-* Registrasi pengguna
-* Login pengguna
-* Akses endpoint menggunakan JWT
-* Menampilkan seluruh data barang
-* Menampilkan detail barang
-* Menambahkan barang
-* Memperbarui barang
-* Menghapus barang
-* Integrasi API kurs mata uang
+- Mengambil nilai tukar USD terhadap IDR
+- Mengonversi harga barang secara otomatis
+- Menampilkan kurs yang digunakan
+- Memberikan fallback apabila API tidak dapat diakses
 
 ---
 
-## Struktur Project
+# Keamanan
+
+- JWT Authentication
+- Bearer Token
+- Role-Based Authorization (RBAC)
+- Endpoint CRUD dilindungi berdasarkan role
+- Validasi request menggunakan Zod
+
+---
+
+# Pengujian
+
+Pengujian dilakukan menggunakan:
+
+- Swagger UI
+- Postman
+
+Skenario pengujian meliputi:
+
+- Registrasi
+- Login
+- Authentication menggunakan JWT
+- Authorization berdasarkan role
+- CRUD Inventory
+- Integrasi API Kurs Mata Uang
+
+---
+
+# Struktur Project
 
 ```text
 src
 ├── controllers
 ├── routes
-├── services
 ├── middlewares
+├── services
 ├── schemas
 ├── db
 ├── docs
+├── store
 ├── app.ts
 └── server.ts
 ```
 
 ---
 
-## Pengembangan Lanjutan
+# Pengembangan Selanjutnya
 
-Beberapa pengembangan yang dapat dilakukan pada project ini:
+Beberapa pengembangan yang masih dapat dilakukan:
 
-* Menambahkan dukungan multi-currency (EUR, JPY, SGD, MYR, dll)
-* Integrasi RabbitMQ untuk komunikasi asynchronous antar service
+- Menambahkan dukungan multi-currency (EUR, JPY, SGD, MYR, dll.)
+- Mengubah arsitektur menjadi Microservices
+- Mengintegrasikan RabbitMQ sebagai komunikasi asynchronous
+- Deployment ke cloud
+- Menambahkan Unit Testing dan Integration Testing
+
+---
+
+# Lisensi
+
+Project ini dibuat untuk keperluan pembelajaran dan tugas mata kuliah **Web Service**.

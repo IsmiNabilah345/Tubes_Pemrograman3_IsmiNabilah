@@ -1,20 +1,19 @@
+import bcrypt from "bcrypt";
 import type { Request, Response } from "express";
 import { randomUUID } from "node:crypto";
-import bcrypt from "bcrypt";
 
-import { generateToken } from "../services/auth.js";
 import { registerSchema } from "../schemas/auth.js";
 import {
-  findUserByUsername,
+  generateToken,
+  verifyToken
+} from "../services/auth.js";
+import {
   createUser,
+  findUserByUsername,
   updateUserRole
 } from "../services/users.js";
 
-
-export const register = async (
-  req: Request,
-  res: Response
-) => {
+export const register = async (req: Request, res: Response) => {
   const parsed = registerSchema.safeParse(req.body);
 
   if (!parsed.success) {
@@ -24,7 +23,6 @@ export const register = async (
   }
 
   const { username, password } = parsed.data;
-
   const existingUser = findUserByUsername(username);
 
   if (existingUser) {
@@ -46,15 +44,9 @@ export const register = async (
   });
 };
 
-// LOGIN LAMA (sementara jangan dihapus dulu)
-export const login = async (
-  req: Request,
-  res: Response
-) => {
+export const login = async (req: Request, res: Response) => {
   const { username, password } = req.body;
-
-  const user =
-    findUserByUsername(username);
+  const user = findUserByUsername(username);
 
   if (!user) {
     return res.status(401).json({
@@ -65,11 +57,7 @@ export const login = async (
     });
   }
 
-  const validPassword =
-    await bcrypt.compare(
-      password,
-      user.password
-    );
+  const validPassword = await bcrypt.compare(password, user.password);
 
   if (!validPassword) {
     return res.status(401).json({
@@ -80,10 +68,7 @@ export const login = async (
     });
   }
 
-  const token = generateToken(
-    user.username,
-    user.role
-  );
+  const token = generateToken(user.username, user.role);
 
   return res.json({
     token,
@@ -91,10 +76,36 @@ export const login = async (
   });
 };
 
-export const changeRole = (
-  req: Request,
-  res: Response
-) => {
+export const verify = (req: Request, res: Response) => {
+  const { token } = req.body;
+
+  if (!token) {
+    return res.status(400).json({
+      error: {
+        code: "TOKEN_REQUIRED",
+        message: "Token diperlukan"
+      }
+    });
+  }
+
+  try {
+    const payload = verifyToken(token);
+
+    return res.json({
+      valid: true,
+      user: payload
+    });
+  } catch {
+    return res.status(401).json({
+      error: {
+        code: "INVALID_TOKEN",
+        message: "Token tidak valid"
+      }
+    });
+  }
+};
+
+export const changeRole = (req: Request, res: Response) => {
   const { username, role } = req.body;
 
   updateUserRole(username, role);

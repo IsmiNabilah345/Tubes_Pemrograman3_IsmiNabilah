@@ -1,12 +1,13 @@
 import { config } from "dotenv";
+
 import { app } from "./app.js";
 import { initializeDatabase } from "./db/database.js";
 
 config();
 initializeDatabase();
 
-const port = Number(process.env.PORT ?? 3000);
+const port = Number(process.env.INVENTORY_SERVICE_PORT ?? 3002);
 
 app.listen(port, () => {
-  console.log(`Web Service API running on http://localhost:${port}`);
+  console.log(`Inventory service running on http://localhost:${port}`);
 });

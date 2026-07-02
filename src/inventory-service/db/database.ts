@@ -9,7 +9,6 @@ mkdirSync(dirname(databasePath), { recursive: true });
 export const db = new DatabaseSync(databasePath);
 
 export const initializeDatabase = () => {
-  // 1. Ganti tabel 'books' jadi 'items'
   db.exec(`
     CREATE TABLE IF NOT EXISTS items (
       id TEXT PRIMARY KEY,
@@ -21,23 +20,11 @@ export const initializeDatabase = () => {
     )
   `);
 
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS users (
-      id TEXT PRIMARY KEY,
-      username TEXT NOT NULL UNIQUE,
-      password TEXT NOT NULL,
-      role TEXT NOT NULL DEFAULT 'user',
-      created_at TEXT NOT NULL
-    )
-  `);
-
-  // 2. Cek apakah tabel kosong (ganti query ke items)
   const countRow = db
     .prepare("SELECT COUNT(*) AS total FROM items")
     .get() as { total: number };
 
   if (countRow.total === 0) {
-    // 3. Masukkan data contoh barang gudang
     db.prepare(
       `
         INSERT INTO items (id, name, category, price_usd, stock, created_at)
@@ -47,8 +34,8 @@ export const initializeDatabase = () => {
       "item-001",
       "Laptop Pro 2026",
       "Electronics",
-      1200.50, // Harga dalam USD
-      15,      // Stok barang
+      1200.50,
+      15,
       new Date().toISOString()
     );
 

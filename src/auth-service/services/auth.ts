@@ -2,10 +2,7 @@ import jwt from "jsonwebtoken";
 
 const SECRET_KEY = "gudang-pintar-secret";
 
-export const generateToken = (
-  username: string,
-  role: string
-) => {
+export const generateToken = (username: string, role: string) => {
   return jwt.sign(
     {
       username,

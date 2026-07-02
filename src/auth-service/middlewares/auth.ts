@@ -1,5 +1,11 @@
 import type { NextFunction, Request, Response } from "express";
+
 import { verifyToken } from "../services/auth.js";
+
+type AuthUser = {
+  username: string;
+  role: string;
+};
 
 export const authenticate = (
   req: Request,
@@ -8,7 +14,7 @@ export const authenticate = (
 ) => {
   const authHeader = req.headers.authorization;
 
-  if (!authHeader) {
+  if (!authHeader?.startsWith("Bearer ")) {
     return res.status(401).json({
       error: {
         code: "UNAUTHORIZED",
@@ -20,11 +26,10 @@ export const authenticate = (
   const token = authHeader.replace("Bearer ", "");
 
   try {
-    const payload = verifyToken(token);
-
+    const payload = verifyToken(token) as AuthUser;
     (req as any).user = payload;
 
-    next();
+    return next();
   } catch {
     return res.status(401).json({
       error: {
@@ -33,23 +38,4 @@ export const authenticate = (
       }
     });
   }
-};
-
-export const requireAdmin = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const user = (req as any).user;
-
-  if (user.role !== "admin") {
-    return res.status(403).json({
-      error: {
-        code: "FORBIDDEN",
-        message: "Akses hanya untuk admin"
-      }
-    });
-  }
-
-  next();
 };

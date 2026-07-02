@@ -5,9 +5,12 @@
   "description": "Tutorial praktik Web Service berbasis Node.js, Express, dan TypeScript.",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
+    "dev": "npm run dev:inventory",
+    "dev:auth": "tsx watch src/auth-service/server.ts",
+    "dev:inventory": "tsx watch src/inventory-service/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js",
+    "start:auth": "node dist/auth-service/server.js",
+    "start:inventory": "node dist/inventory-service/server.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
   },

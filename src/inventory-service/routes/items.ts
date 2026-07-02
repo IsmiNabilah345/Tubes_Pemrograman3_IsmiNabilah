@@ -1,18 +1,18 @@
 import { Router } from "express";
+
 import {
   createBook,
   deleteBook,
   getBookById,
   listBooks,
   updateBook
-} from "../controllers/books.js";
+} from "../controllers/items.js";
 import {
   authenticate,
   requireAdmin
 } from "../middlewares/auth.js";
 
-
-export const booksRouter = Router();
+export const itemsRouter = Router();
 
 /**
  * @swagger
@@ -21,11 +21,22 @@ export const booksRouter = Router();
  *     summary: Mengambil daftar seluruh barang
  *     tags:
  *       - Items
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         required: false
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         required: false
  *     responses:
  *       200:
  *         description: Berhasil mengambil data barang
  */
-booksRouter.get("/", listBooks);
+itemsRouter.get("/", listBooks);
 
 /**
  * @swagger
@@ -41,26 +52,16 @@ booksRouter.get("/", listBooks);
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               category:
- *                 type: string
- *               price_usd:
- *                 type: number
- *               stock:
- *                 type: integer
+ *             $ref: '#/components/schemas/ItemInput'
  *     responses:
  *       201:
  *         description: Barang berhasil ditambahkan
+ *       401:
+ *         description: Token tidak valid atau tidak dikirim
+ *       403:
+ *         description: Akses hanya untuk admin
  */
-booksRouter.post(
-  "/",
-  authenticate,
-  requireAdmin,
-  createBook
-);
+itemsRouter.post("/", authenticate, requireAdmin, createBook);
 
 /**
  * @swagger
@@ -81,7 +82,7 @@ booksRouter.post(
  *       404:
  *         description: Barang tidak ditemukan
  */
-booksRouter.get("/:id", getBookById);
+itemsRouter.get("/:id", getBookById);
 
 /**
  * @swagger
@@ -98,18 +99,23 @@ booksRouter.get("/:id", getBookById);
  *         required: true
  *         schema:
  *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ItemInput'
  *     responses:
  *       200:
  *         description: Data berhasil diperbarui
+ *       401:
+ *         description: Token tidak valid atau tidak dikirim
+ *       403:
+ *         description: Akses hanya untuk admin
  *       404:
  *         description: Barang tidak ditemukan
  */
-booksRouter.put(
-  "/:id",
-  authenticate,
-  requireAdmin,
-  updateBook
-);
+itemsRouter.put("/:id", authenticate, requireAdmin, updateBook);
 
 /**
  * @swagger
@@ -129,12 +135,11 @@ booksRouter.put(
  *     responses:
  *       204:
  *         description: Barang berhasil dihapus
+ *       401:
+ *         description: Token tidak valid atau tidak dikirim
+ *       403:
+ *         description: Akses hanya untuk admin
  *       404:
  *         description: Barang tidak ditemukan
  */
-booksRouter.delete(
-  "/:id",
-  authenticate,
-  requireAdmin,
-  deleteBook
-);
+itemsRouter.delete("/:id", authenticate, requireAdmin, deleteBook);
